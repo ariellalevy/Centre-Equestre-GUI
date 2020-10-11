@@ -1,0 +1,19 @@
+.example-header-image {
+    background-image: url('../../assets/IconInscription.jpg');
+    background-size: cover;
+}
+
+.example-para{
+    white-space: normal;
+}
+
+.example-form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+}
+  
+.example-full-width {
+    width: 100%;
+}
+  

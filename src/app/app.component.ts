@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Centre-Equestre-GUI';
+  isLogin:boolean=false
+
+  post(item) {
+    console.log(item);
+    this.isLogin = true
+  }
 }

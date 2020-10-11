@@ -1,0 +1,89 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <div>
+        <img src="../../assets/logo.png" class="horseCenter"/></div>
+      <span class="example-spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="menu2">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+        <mat-menu #menu2="matMenu">
+          <button mat-menu-item>
+            <span >Login</span>
+          </button>
+          <button mat-menu-item>
+            <span >Logout</span>
+          </button>
+        </mat-menu>
+      <p>username</p>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="example-app-name">Centre Equestre</h1>
+  </mat-toolbar>
+  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+        <a (click)="goToFunct(nav)" mat-list-item routerLink="." *ngFor="let nav of fillerNav"><mat-icon style="padding-right: 20px">{{nav.icon}}</mat-icon>{{nav.text}}<mat-divider></mat-divider></a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <h1 class="example-app-name">{{fillerContent.text}}</h1>  
+      <mat-tab-group class="demo-tab-group" #tabGroup [(selectedIndex)]="selectedTab">
+        <mat-tab label="Tab_1" #tab1 *ngIf="disableTab1 == true">
+          <ng-template mat-tab-label>
+            <mat-icon>featured_play_list</mat-icon>
+          </ng-template>
+          <div class="demo-tab-content">
+            <div *ngIf="fillerContent.text == 'Accueil'">
+              <mat-grid-list [cols]="(tabletQuery.matches && mobileQuery.matches) ? '1' : tabletQuery.matches ? '2' : '3' "
+          [rowHeight]="(tabletQuery.matches && mobileQuery.matches) ? '400' : tabletQuery.matches ? '400' : '400'">
+                <p *ngFor="let service of fillerNav; let i = index">
+                  <mat-grid-tile>
+                    <app-panel-acceuil [service]="service" (selected)="goToFunct($event)"></app-panel-acceuil>
+                  </mat-grid-tile>
+                </p>
+              </mat-grid-list>
+            </div>
+            <div *ngIf="fillerContent.text == 'Informations utilisateur'">
+              <app-user-info [data]="data" (sentForm2)="get($event, fillerContent.text)" (sentForm)="put($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)"></app-user-info>
+            </div>
+            <div *ngIf="fillerContent.text == 'Gestion des utilisateurs'">
+              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll($event, fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>
+            </div>
+            <div *ngIf="fillerContent.text == 'Gestion des chevaux'">
+              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll($event, fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>
+            </div>
+            <div *ngIf="fillerContent.text == 'Gestion des cours'">
+              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll($event, fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>
+            </div>
+            <div *ngIf="fillerContent.text == 'Planning de cours'">
+              Gestion des cours
+              <!--<app-panel-liste [typePanel]="fillerContent.text" (sentForm)="post($event,'list', fillerContent.text)" (sentForm2)="post($event, 'del', fillerContent.text)" (sentForm3)="post($event,'put', fillerContent.text)" (sentForm4)="post($event,'consult', fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>-->
+            </div>
+          </div>
+        </mat-tab>
+        <mat-tab label="Tab_2" #tab2 *ngIf="disableTab2 == false">
+          <ng-template mat-tab-label>
+              <mat-icon>add_box</mat-icon>
+          </ng-template>
+          <div class="demo-tab-content">
+            <div *ngIf="fillerContent.text == 'Gestion des utilisateurs'">
+              <app-panel-create [typePanel]="fillerContent.text" (sendform)="post($event, fillerContent.text)"></app-panel-create>
+              <!--<app-panel-create-new [changeView]="tab2.isActive" [typePanel]="fillerContent.text" [fr]="fillerContent[0].fr" [data]="data" (sentForm)="post($event, 'add')"></app-panel-create-new>-->
+            </div>
+            <div *ngIf="fillerContent.text == 'Gestion des chevaux'">
+              <app-panel-create [typePanel]="fillerContent.text" (sendform)="post($event, fillerContent.text)"></app-panel-create>
+              <!--<app-panel-create-new [changeView]="tab2.isActive" [typePanel]="fillerContent.text" [fr]="fillerContent[0].fr" [data]="data" (sentForm)="post($event, 'add')"></app-panel-create-new>-->
+            </div>
+            <div *ngIf="fillerContent.text == 'Gestion des cours'">
+              <app-panel-create [typePanel]="fillerContent.text" (sendform)="post($event, fillerContent.text)"></app-panel-create>
+              <!--<app-panel-create-new [changeView]="tab2.isActive" [typePanel]="fillerContent.text" [fr]="fillerContent[0].fr" [data]="data" (sentForm)="post($event, 'add')"></app-panel-create-new>-->
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

@@ -1,0 +1,39 @@
+<mat-card class="example-card">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>{{dataInfos.firstName}} {{dataInfos.lastName}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder={{dataInfos.email}} name="email" [(ngModel)]="dataInfos.email">
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder={{dataInfos.firstName}} name="name" [(ngModel)]="dataInfos.firstName">
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Prénom</mat-label>
+          <input matInput placeholder={{dataInfos.lastName}} name="lastName" [(ngModel)]="dataInfos.lastName">
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Telephone</mat-label>
+          <span matPrefix>+33 &nbsp;</span>
+          <input type="number" matInput placeholder={{dataInfos.phoneNumber}} name="phone" [(ngModel)]="dataInfos.phoneNumber">
+        </mat-form-field><br>
+        <mat-form-field>
+          <input matInput placeholder="Rôle" value={{dataInfos.role}} disabled>
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Numéro de licence</mat-label>
+          <input matInput type="number" maxlength="10" placeholder={{dataInfos.licenceNumber}} name="licence" [(ngModel)]="dataInfos.licenceNumber"> 
+        </mat-form-field><br>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button (click)="modifier()">Mettre à jour</button>
+      <button mat-button (click)="openDialog()">Modifier le mot de passe</button>
+    </mat-card-actions>
+  </mat-card>
+  

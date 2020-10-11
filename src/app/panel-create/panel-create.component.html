@@ -1,0 +1,229 @@
+<div *ngIf="typePanel == 'Gestion des utilisateurs'">
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>information général</ng-template>
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="nom de famille" name="name" [(ngModel)]="formCreateUser.name" [formControl]="name" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Prénom</mat-label>
+          <input matInput placeholder="Prénom" name="lastname" [(ngModel)]="formCreateUser.lastname" [formControl]="lastname" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Entrez votre email</mat-label>
+          <input matInput placeholder="pat@example.com" name="email" [(ngModel)]="formCreateUser.email" [formControl]="email" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Telephone</mat-label>
+          <span matPrefix>+33 &nbsp;</span>
+          <input type="number" matInput placeholder="6 23 50 40 47" name="phone" [(ngModel)]="formCreateUser.phone" [formControl]="phone" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Configuration de l'authentification</ng-template>
+        <mat-form-field>
+          <mat-label>Saisir le mot de passe</mat-label>
+          <input matInput type="password" name="password" [(ngModel)]="formCreateUser.password" [formControl]="password" required>
+          <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="accent" matStepperPrevious>Précédent</button>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Gestion des role </ng-template>
+        <mat-form-field>
+          <mat-label>Role dans le centre équestre</mat-label>
+          <mat-select  [(ngModel)]="formCreateUser.role" name="role" [formControl]="role" required>
+              <mat-option value="cavalier">Cavalier</mat-option>
+              <mat-option value="moniteur">Moniteur</mat-option>
+              <mat-option value="administateur">administateur</mat-option>
+          </mat-select>
+      </mat-form-field><br>
+        <div>
+          <button mat-button color="accent" matStepperPrevious>Précédent</button>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [optional]="isOptional">
+      <form>
+        <ng-template matStepLabel>information optionel</ng-template>
+        <mat-form-field>
+          <mat-label>Numéro de licence</mat-label>
+          <input matInput type="number" maxlength="10" placeholder="Ex. 9410584323" name="licence" [(ngModel)]="formCreateUser.licence"> 
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="accent" matStepperPrevious>Précédent</button>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Récapitulatif</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Nom" value={{formCreateUser.name}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Prénom" value={{formCreateUser.lastname}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Adresse email" value={{formCreateUser.email}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Numéro de téléphone" value={{formCreateUser.phone}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Mot de passe" value={{formCreateUser.password}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Rôle" value={{formCreateUser.role}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Numéro de licence" value={{formCreateUser.licence}} disabled>
+      </mat-form-field>
+      <div>
+        <button mat-button color="accent" matStepperPrevious>Précédent</button>
+        <button mat-button color="primary" (click)="ajout()">Crée</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>  
+</div>
+<div *ngIf="typePanel == 'Gestion des chevaux'">
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>information général</ng-template>
+        <mat-form-field>
+          <mat-label>Nom</mat-label>
+          <input matInput placeholder="nom du cheval" name="name" [(ngModel)]="formCreateCheval.nom" [formControl]="name" required>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Type de cheval</mat-label>
+          <mat-select  [(ngModel)]="formCreateCheval.type" name="type" [formControl]="type" required>
+              <mat-option value="poney">Poney</mat-option>
+              <mat-option value="Chevaux">Chevaux</mat-option>
+          </mat-select>
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Informations complémentaire (taille et poids)</ng-template>
+        <mat-form-field>
+          <mat-label>Taille en mètre</mat-label>
+          <input matInput type="number" maxlength="7" name="taille" [(ngModel)]="formCreateCheval.taille" [formControl]="taille" required>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Poids en Kilo</mat-label>
+          <input matInput type="number" maxlength="7" name="poids" [(ngModel)]="formCreateCheval.poids" [formControl]="poids" required>
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="accent" matStepperPrevious>Précédent</button>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Récapitulatif</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="Nom du cheval" value={{formCreateCheval.nom}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="type de cheval" value={{formCreateCheval.type}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="taille en mètre" value={{formCreateCheval.taille}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Poids en Kilo" value={{formCreateCheval.poids}} disabled>
+      </mat-form-field>
+      <div>
+        <button mat-button color="accent" matStepperPrevious>Précédent</button>
+        <button mat-button color="primary" (click)="ajout()">Crée</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper> 
+</div>
+<div *ngIf="typePanel == 'Gestion des cours'">
+  <mat-horizontal-stepper linear #stepper>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>information général</ng-template>
+        <mat-form-field>
+          <mat-label>Titre</mat-label>
+          <input matInput placeholder="titre du cour" name="name" [(ngModel)]="formCreateCours.titre" [formControl]="name" required>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Nombre d'élève</mat-label>
+          <input matInput type="number" maxlength="2" name="nbrCavalier" [(ngModel)]="formCreateCours.nbrCavalier" [formControl]="nbrCavalier" required>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Niveau</mat-label>
+          <input matInput type="number" maxlength="1" placeholder="de Galop 1 à Galop 7" name="niveau" [(ngModel)]="formCreateCours.niveau" [formControl]="niveau" required>
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form>
+        <ng-template matStepLabel>Informations complémentaire (jour et horaire)</ng-template>
+        <mat-form-field>
+          <input matInput [matDatepicker]="picker3" placeholder="Sélectionner le jour de cour"[(ngModel)]="formCreateCours.dateCours" [formControl]="serializedDate">
+          <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+          <mat-datepicker #picker3></mat-datepicker>
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Horaire du cour</mat-label>
+          <input matInput maxlength="12" placeholder="ex. 13:00-14:30" name="horaire" [(ngModel)]="formCreateCours.horaire" [formControl]="horaire" required>
+        </mat-form-field><br>
+        <div>
+          <button mat-button color="accent" matStepperPrevious>Précédent</button>
+          <button mat-button color="primary" matStepperNext>Suivant</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Récapitulatif</ng-template>
+      <mat-form-field>
+        <input matInput placeholder="titre du cour" value={{formCreateCours.titre}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Nombre d'élèves" value={{formCreateCours.nbrCavalier}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Niveau du cour" value={{formCreateCours.niveau}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Date du cour" value={{formCreateCours.dateCours}} disabled>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Horaire du cour" value={{formCreateCours.horaire}} disabled>
+      </mat-form-field>
+      <div>
+        <button mat-button color="accent" matStepperPrevious>Précédent</button>
+        <button mat-button color="primary" (click)="ajout()">Crée</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper> 
+</div>
+

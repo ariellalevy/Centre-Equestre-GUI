@@ -1,0 +1,22 @@
+@import '~@angular/material/theming';
+@import '~material-design-icons/iconfont/material-icons.css';
+@import './palette';
+
+  html {
+    background: url(./assets/background.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+@include mat-core();
+$myProject-primary: mat-palette($md-primary);
+$myProject-accent:  mat-palette($md-accent, 500, A100, A400);
+$myProject-warn: mat-palette($md-warn);
+$myProject-accenttwo: mat-palette($md-adminbutton);
+$myProject-primarytwo: mat-palette($md-adminbutton);
+$myProject-foreground: mat-palette($md-primarytwo);
+$myProject-theme: mat-light-theme($myProject-primary, $myProject-accent, $myProject-warn);
+
+@include angular-material-theme($myProject-theme);

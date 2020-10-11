@@ -1,0 +1,21 @@
+<mat-card class="example-card">
+    <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Changement du mot de passe</mat-card-title>
+        <mat-card-subtitle>Veuillez remplir le formulaire</mat-card-subtitle>
+    </mat-card-header>
+    <form class="example-form">
+        <mat-form-field class="example-full-width">
+            <mat-label>Mot de passe</mat-label>
+            <input matInput type="password" [(ngModel)]="data.password" [formControl]="password" required>
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+            <mat-label>Confirmation du mot de passe</mat-label>
+            <input matInput type="password" [(ngModel)]="data.passwordConfirm" [formControl]="passwordConfirm" required>
+        </mat-form-field><br>
+        <p class="example-para">
+            <button mat-raised-button color="primary" [mat-dialog-close]="data" cdkFocusInitial>Connexion</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button>
+        </p>
+    </form>
+</mat-card>

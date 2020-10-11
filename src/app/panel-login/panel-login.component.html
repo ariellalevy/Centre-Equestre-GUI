@@ -1,0 +1,75 @@
+<mat-card class="example-card">
+    <div  *ngIf="login==true">
+        <mat-card-header>
+            <button mat-icon-button (click)="openDialog2()">
+                <div mat-card-avatar class="example-header-image"></div>
+            </button>
+            <mat-card-title>CONNEXION</mat-card-title>
+            <mat-card-subtitle>Veuillez remplir le formulaire</mat-card-subtitle>
+        </mat-card-header>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Entrez votre email ou numero de telephone</mat-label>
+                <input matInput placeholder="pat@example.com" [(ngModel)]="emailPhoneChamp" [formControl]="emailPhone" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Saisir le mot de passe</mat-label>
+                <input matInput type="password" [(ngModel)]="formConnexion.password" [formControl]="password" required>
+            </mat-form-field><br>
+            <p class="example-para">
+                <button mat-raised-button (click)="connexion()" color="primary">Connexion</button>
+                <button mat-raised-button color="warn">Annuler</button>
+                <button mat-button (click)="login=false" color="accent">Pas encore inscrit?</button>
+                <button mat-button (click)="openDialog()" color="primary">Mot de passe oublié ?</button>
+            </p>
+        </form>
+    </div>
+    <div  *ngIf="login==false">
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>INSCRIPTION</mat-card-title>
+            <mat-card-subtitle>Veuillez remplir le formulaire</mat-card-subtitle>
+          </mat-card-header>
+        <form class="example-form">
+            <mat-form-field class="example-full-width">
+                <mat-label>Entrez votre email</mat-label>
+                <input matInput placeholder="pat@example.com" name="email" [(ngModel)]="formInscription.email" [formControl]="email" required>
+                <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Saisir le mot de passe</mat-label>
+                <input matInput type="password" name="password" [(ngModel)]="formInscription.password" [formControl]="password" required>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Nom</mat-label>
+                <input matInput placeholder="First name" name="name" [(ngModel)]="formInscription.name" [formControl]="name" required>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Prénom</mat-label>
+                <input matInput placeholder="Last name" name="lastname" [(ngModel)]="formInscription.lastname" [formControl]="lastname" required>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Telephone</mat-label>
+                <span matPrefix>+33 &nbsp;</span>
+                <input type="number" matInput placeholder="6 23 50 40 47" name="phone" [(ngModel)]="formInscription.phone" [formControl]="phone" required>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Role dans le centre équestre</mat-label>
+                <mat-select  [(ngModel)]="formInscription.role" name="role" [formControl]="role" required>
+                    <mat-option value="cavalier">Cavalier</mat-option>
+                    <mat-option value="moniteur">Moniteur</mat-option>
+                </mat-select>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+                <mat-label>Numéro de licence</mat-label>
+                <input matInput type="number" maxlength="10" placeholder="Ex. 9410584323" name="licence" [(ngModel)]="formInscription.licence"> 
+            </mat-form-field><br>
+            <p class="example-para">
+                <button mat-raised-button (click)="inscription()" color="primary">Valider</button>
+                <button mat-raised-button (click)="login=true" color="warn">Annuler</button>
+            </p>
+        </form>
+    </div>
+    
+</mat-card>
