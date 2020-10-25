@@ -27,6 +27,7 @@ export class UserInfoComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges) {
     if(changes['data']){
       if(this.data!=undefined){
+        this.dataInfos = new dataInfos();
         this.dataInfos.email = this.data.email;
         this.dataInfos.firstName = this.data.firstName;
         this.dataInfos.lastName = this.data.lastName;

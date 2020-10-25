@@ -1,0 +1,8 @@
+<mat-card>
+    <p align="center">
+      Voulez supprimer cette élément? (si vous cliquez sur confirmer l'action sera irréversible)<br/>
+      <button mat-raised-button color="warn" [mat-dialog-close]="data" cdkFocusInitial>confirmer</button>
+      <button mat-raised-button class='bnt' color="primary"  (click)="onNoClick()">annuler</button>
+    </p>
+  </mat-card>
+  

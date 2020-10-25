@@ -1,0 +1,52 @@
+<div *ngIf="user.role == 'cavalier'">
+  <p *ngFor="let planning of planningCours">
+    <mat-toolbar color="primary">
+      <span>{{planning.titre}} <br/>
+        {{planning.dateCours}}
+      </span>
+      <span class="example-spacer"></span>
+      <span>{{planning.horaire}}</span>
+    </mat-toolbar>
+    <br/>
+    Moniteur: {{planning.moniteur}} <br/>
+    Niveau: {{planning.niveau}} <br/>
+    Cheval: {{planning.cheval}}<br/>
+  </p>
+</div>
+<div *ngIf="user.role == 'moniteur'">
+  <p> <!--  *ngFor="let planning of planningCours" -->
+    <mat-toolbar color="primary">
+      <span>Cour débutant <br/>
+        19 octobre 2020
+      </span>
+      <span class="example-spacer"></span>
+      <span>15:00-16:30</span>
+    </mat-toolbar>
+    <br/>
+    Moniteur: Laurent dupont <br/>
+    Niveau: 4 <br/>
+    Liste des élèves:<br/>
+    Marc: 
+    <mat-form-field>
+      <mat-label>Selectionner le cheval</mat-label>
+      <mat-select [(value)]="selected">
+        <mat-option>None</mat-option>
+        <mat-option value="Maurice">Maurice</mat-option>
+        <mat-option value="Luna">Luna</mat-option>
+        <mat-option value="Kafir">Kafir</mat-option>
+      </mat-select>
+    </mat-form-field><br/>
+    Emma:
+    <mat-form-field>
+      <mat-label>Selectionner le cheval</mat-label>
+      <mat-select [(value)]="selected2">
+        <mat-option>None</mat-option>
+        <mat-option value="Maurice">Maurice</mat-option>
+        <mat-option value="Luna">Luna</mat-option>
+        <mat-option value="Kafir">Kafir</mat-option>
+      </mat-select>
+    </mat-form-field><br/>
+    <button mat-raised-button color="primary" (click)="validation()">Valider</button>
+  </p>
+</div>
+

@@ -33,7 +33,11 @@ import { PanelCreateComponent } from './panel-create/panel-create.component'
 import {MatStepperModule} from '@angular/material/stepper';
 import { HttpClientModule } from '@angular/common/http';
 import { AppService } from './app.service';
-import { PanelListeComponent } from './panel-liste/panel-liste.component'
+import { PanelListeComponent, DialogOverviewDeleteComponent, DialogOverviewModificationComponent } from './panel-liste/panel-liste.component';
+import { PlanningListComponent } from './planning-list/planning-list.component';
+import { PanelPlanningComponent } from './panel-planning/panel-planning.component';
+import { PanelModifyPasswordComponent } from './panel-modify-password/panel-modify-password.component';
+import { PanelPrincipalComponent } from './panel-principal/panel-principal.component'
 
 @NgModule({
   declarations: [
@@ -46,7 +50,13 @@ import { PanelListeComponent } from './panel-liste/panel-liste.component'
     UserInfoComponent,
     DialogModificationMdp,
     PanelCreateComponent,
-    PanelListeComponent
+    PanelListeComponent,
+    DialogOverviewDeleteComponent,
+    DialogOverviewModificationComponent,
+    PlanningListComponent,
+    PanelPlanningComponent,
+    PanelModifyPasswordComponent,
+    PanelPrincipalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -58,7 +68,7 @@ import { PanelListeComponent } from './panel-liste/panel-liste.component'
     MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MatTableModule, MatPaginatorModule
   ],
   providers: [AppService, MatNativeDateModule],
-  entryComponents: [PanelLoginComponent, DialogRetrievePassword],
+  entryComponents: [PanelLoginComponent, DialogRetrievePassword, DialogOverviewDeleteComponent, DialogOverviewModificationComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

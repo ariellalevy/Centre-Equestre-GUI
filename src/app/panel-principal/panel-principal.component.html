@@ -1,0 +1,9 @@
+<div>
+    <div *ngIf="isLogin==false">
+      <app-panel-login (sentForm)="inscription($event)" (sentForm2)="getPassword($event)" (sentForm3)="connexion($event)"></app-panel-login>
+    </div>
+    <mat-divider></mat-divider>
+    <div *ngIf="isLogin==true">
+      <app-panel-general></app-panel-general>
+    </div>
+</div>

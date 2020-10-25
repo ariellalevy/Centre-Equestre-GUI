@@ -50,17 +50,21 @@
               <app-user-info [data]="data" (sentForm2)="get($event, fillerContent.text)" (sentForm)="put($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)"></app-user-info>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des utilisateurs'">
-              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll($event, fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll(fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)"  [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des chevaux'">
-              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll($event, fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll(fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des cours'">
-              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll($event, fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" (sentForm)="getAll(fillerContent.text)" (sentForm2)="del($event, fillerContent.text)" (sentForm3)="put($event, fillerContent.text)" (sentForm4)="get($event, fillerContent.text)" [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Planning de cours'">
-              Gestion des cours
-              <!--<app-panel-liste [typePanel]="fillerContent.text" (sentForm)="post($event,'list', fillerContent.text)" (sentForm2)="post($event, 'del', fillerContent.text)" (sentForm3)="post($event,'put', fillerContent.text)" (sentForm4)="post($event,'consult', fillerContent.text)" [data2]="data" [data]="data" ></app-panel-liste>-->
+              <div *ngIf="this.user.role == 'cavalier'">
+                <app-planning-list [typePanel]="fillerContent.text" (sentForm)="getAll(fillerContent.text)" (sentForm2)="post($event, fillerContent.text)" (sentForm3)="del($event, fillerContent.text)" [data]="data" [data2]="data2"></app-planning-list>
+              </div>
+              <div *ngIf="this.user.role == 'moniteur'">
+                <app-panel-planning [typePanel]="fillerContent.text" (sentForm)="getCours($event, fillerContent.text)" [planningCours]="planningCours"></app-panel-planning>
+              </div>
             </div>
           </div>
         </mat-tab>
@@ -71,15 +75,17 @@
           <div class="demo-tab-content">
             <div *ngIf="fillerContent.text == 'Gestion des utilisateurs'">
               <app-panel-create [typePanel]="fillerContent.text" (sendform)="post($event, fillerContent.text)"></app-panel-create>
-              <!--<app-panel-create-new [changeView]="tab2.isActive" [typePanel]="fillerContent.text" [fr]="fillerContent[0].fr" [data]="data" (sentForm)="post($event, 'add')"></app-panel-create-new>-->
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des chevaux'">
               <app-panel-create [typePanel]="fillerContent.text" (sendform)="post($event, fillerContent.text)"></app-panel-create>
-              <!--<app-panel-create-new [changeView]="tab2.isActive" [typePanel]="fillerContent.text" [fr]="fillerContent[0].fr" [data]="data" (sentForm)="post($event, 'add')"></app-panel-create-new>-->
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des cours'">
               <app-panel-create [typePanel]="fillerContent.text" (sendform)="post($event, fillerContent.text)"></app-panel-create>
-              <!--<app-panel-create-new [changeView]="tab2.isActive" [typePanel]="fillerContent.text" [fr]="fillerContent[0].fr" [data]="data" (sentForm)="post($event, 'add')"></app-panel-create-new>-->
+            </div>
+            <div *ngIf="fillerContent.text == 'Planning de cours'">
+              <div *ngIf="this.user.role == 'cavalier'">
+                <app-panel-planning [typePanel]="fillerContent.text" (sentForm)="getCours($event, fillerContent.text)" [planningCours]="planningCours"></app-panel-planning>
+              </div>
             </div>
           </div>
         </mat-tab>

@@ -15,7 +15,6 @@ export class PanelCreateComponent implements OnInit {
   formCreateCheval: creationCheval;
   formCreateCours: creationCours;
 
-
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
   name = new FormControl('', [Validators.required]);

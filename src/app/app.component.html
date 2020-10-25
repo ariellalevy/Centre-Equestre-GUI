@@ -1,9 +1,1 @@
-<div>
-  <div *ngIf="isLogin==false">
-    <app-panel-login (sentForm)="post($event)"></app-panel-login>
-  </div>
-  <mat-divider></mat-divider>
-  <div *ngIf="isLogin==true">
-    <app-panel-general></app-panel-general>
-  </div>
-</div>
+<router-outlet></router-outlet>

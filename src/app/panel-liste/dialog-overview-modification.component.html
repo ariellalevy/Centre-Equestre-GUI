@@ -1,0 +1,121 @@
+<div *ngIf="data.typePanel == 'Gestion des utilisateurs'">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{data.elem.firstName}} {{data.elem.lastName}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Email</mat-label>
+              <input matInput placeholder={{data.elem.email}} name="email" [(ngModel)]="data.elem.email">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Nom</mat-label>
+              <input matInput placeholder={{data.elem.firstName}} name="name" [(ngModel)]="data.elem.firstName">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Prénom</mat-label>
+              <input matInput placeholder={{data.elem.lastName}} name="lastName" [(ngModel)]="data.elem.lastName">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Telephone</mat-label>
+              <span matPrefix>+33 &nbsp;</span>
+              <input type="number" matInput placeholder={{data.elem.phoneNumber}} name="phone" [(ngModel)]="data.elem.phoneNumber">
+            </mat-form-field><br>
+            <mat-form-field>
+              <mat-label>Role dans le centre équestre</mat-label>
+              <mat-select  [(ngModel)]="data.elem.role" [(value)]="data.elem.role" name="role">
+                <mat-option value="cavalier">Cavalier</mat-option>
+                <mat-option value="moniteur">Moniteur</mat-option>
+                <mat-option value="administateur">administateur</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Numéro de licence</mat-label>
+              <input matInput type="number" maxlength="10" placeholder={{data.elem.licenceNumber}} name="licence" [(ngModel)]="data.elem.licenceNumber"> 
+            </mat-form-field><br>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Mettre à jour</button>
+          <button mat-button color="warm"  (click)="onNoClick()">annuler</button>
+        </mat-card-actions>
+    </mat-card>    
+</div>
+<div *ngIf="data.typePanel == 'Gestion des chevaux'">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{data.elem.nom}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Nom du cheval</mat-label>
+              <input matInput placeholder={{data.elem.nom}} name="nom" [(ngModel)]="data.elem.nom">
+            </mat-form-field><br>
+            <mat-form-field>
+              <mat-label>Type de cheval</mat-label>
+              <mat-select  [(ngModel)]="data.elem.type" [(value)]="data.elem.type" name="type">
+                <mat-option value="cheval">Cheval</mat-option>
+                <mat-option value="poney">Poney</mat-option>
+              </mat-select>
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Taille</mat-label>
+              <input matInput type="number" placeholder={{data.elem.taille}} name="taille" [(ngModel)]="data.elem.taille">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Poids</mat-label>
+              <input matInput type="number" maxlength="10" placeholder={{data.elem.poids}} name="poids" [(ngModel)]="data.elem.poids"> 
+            </mat-form-field><br>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Mettre à jour</button>
+          <button mat-button color="warm"  (click)="onNoClick()">annuler</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div *ngIf="data.typePanel == 'Gestion des cours'">
+    <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{data.elem.titre}}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <form class="example-form">
+            <mat-form-field class="example-full-width">
+              <mat-label>Titre</mat-label>
+              <input matInput placeholder={{data.elem.titre}} name="titre" [(ngModel)]="data.elem.titre">
+            </mat-form-field><br>
+            <mat-form-field>
+              <input matInput [matDatepicker]="picker3" placeholder="Sélectionner le jour de cour"[(ngModel)]="data.elem.dateCours" [formControl]="serializedDate">
+              <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+              </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Horaire</mat-label>
+              <input matInput placeholder={{data.elem.horaire}} name="horaire" [(ngModel)]="data.elem.horaire">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>NbrCavalier</mat-label>
+              <input matInput type="number" maxlength="10" placeholder={{data.elem.nbrCavalier}} name="nbrCavalier" [(ngModel)]="data.elem.nbrCavalier"> 
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>Niveau</mat-label>
+              <input matInput type="number" maxlength="10" placeholder={{data.elem.niveau}} name="niveau" [(ngModel)]="data.elem.niveau"> 
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
+              <mat-label>idMoniteur</mat-label> 
+              <input matInput type="number" maxlength="10" placeholder={{data.elem.idMoniteur}} name="idMoniteur" [(ngModel)]="data.elem.idMoniteur"> 
+            </mat-form-field><br>
+          </form>
+        </mat-card-content>
+        <mat-card-actions>
+          <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Mettre à jour</button>
+          <button mat-button color="warm"  (click)="onNoClick()">annuler</button>
+        </mat-card-actions>
+    </mat-card>
+</div>

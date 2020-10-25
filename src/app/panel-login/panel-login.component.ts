@@ -24,6 +24,8 @@ export class PanelLoginComponent implements OnInit {
 
   //Data of the form that will be returned.
   @Output() sentForm = new EventEmitter();
+  @Output() sentForm2 = new EventEmitter();
+  @Output() sentForm3 = new EventEmitter();
 
   constructor(public dialog: MatDialog) {}
 
@@ -44,7 +46,7 @@ export class PanelLoginComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogRetrievePassword, {});
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
+      this.sentForm2.emit({obj:result});
     });
   }
 
@@ -74,7 +76,7 @@ export class PanelLoginComponent implements OnInit {
     }else{
       this.formConnexion.phone = this.emailPhoneChamp;
     }
-    this.sentForm.emit({obj:this.formConnexion});
+    this.sentForm3.emit({obj:this.formConnexion});
   }
 }
 
