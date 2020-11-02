@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnInit,  Output, EventEmitter,Input, SimpleChanges} from '@angular/core';
+import {Component, ViewChild, OnInit, Output, EventEmitter,Input, SimpleChanges} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
@@ -11,7 +11,7 @@ import { cours, courSpecifique } from '../formulaire'
 })
 
 export class PlanningListComponent implements OnInit {
-  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','nbrCavalier', 'niveau', 'moniteur', 'inscription'];
+  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','nbrCavalier', 'niveau', 'moniteur', 'inscription','desinscription'];
 
   ELEMENT_DATA_COUR: cours[] = [];
   dataSource:any;
@@ -26,16 +26,16 @@ export class PlanningListComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() typePanel: String;
-  @Output() sentForm = new EventEmitter();
-  @Output() sentForm2 = new EventEmitter();
-  @Output() sentForm3 = new EventEmitter();
+  @Output() getAllObject = new EventEmitter();
+  @Output() inscriptionCour = new EventEmitter();
+  @Output() desinscriptionCour = new EventEmitter();
   @Input() data: any;
   @Input() data2: any;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.sentForm.emit({obj:this.donneeVide});
+    this.getAllObject.emit({obj:this.donneeVide});
     this.courSpecifique = new courSpecifique();
   }
 
@@ -49,7 +49,7 @@ export class PlanningListComponent implements OnInit {
           this.ELEMENT_DATA_COUR.length=0;
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA_COUR);
           for(var i = 0; i<this.data.length; i++){
-            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,moniteur: this.data[i].moniteur,inscription: "S'inscrire"};
+            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,moniteur: this.data[i].moniteur,inscription: "S'inscrire", desinscription:"se désinscrire"};
           }
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -82,14 +82,13 @@ export class PlanningListComponent implements OnInit {
       this.courSpecifique.cavalier = obj.name + " " + obj.lastname;
       this.courSpecifique.idCour = element.id;
       this.courSpecifique.moniteur = element.moniteur;
-      this.sentForm2.emit({obj:this.courSpecifique});
+      this.inscriptionCour.emit({obj:this.courSpecifique});
     }
   }
 
   desinscription(element){
     if(this.typePanel == "Planning de cours"){
-      console.log(element);
-      //this.sentForm3.emit({obj:element.id});
+      this.desinscriptionCour.emit({obj:element.id});
     }
   }
 }

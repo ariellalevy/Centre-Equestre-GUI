@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
@@ -35,7 +36,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppService } from './app.service';
 import { PanelListeComponent, DialogOverviewDeleteComponent, DialogOverviewModificationComponent } from './panel-liste/panel-liste.component';
 import { PlanningListComponent } from './planning-list/planning-list.component';
-import { PanelPlanningComponent } from './panel-planning/panel-planning.component';
+import { PanelPlanningComponent, DialogCreateChevalComponent } from './panel-planning/panel-planning.component';
 import { PanelModifyPasswordComponent } from './panel-modify-password/panel-modify-password.component';
 import { PanelPrincipalComponent } from './panel-principal/panel-principal.component'
 
@@ -56,7 +57,8 @@ import { PanelPrincipalComponent } from './panel-principal/panel-principal.compo
     PlanningListComponent,
     PanelPlanningComponent,
     PanelModifyPasswordComponent,
-    PanelPrincipalComponent
+    PanelPrincipalComponent,
+    DialogCreateChevalComponent
   ],
   imports: [
     AppRoutingModule,
@@ -65,10 +67,10 @@ import { PanelPrincipalComponent } from './panel-principal/panel-principal.compo
     HttpClientModule,
     MatButtonModule, MatCardModule, MatInputModule, MatFormFieldModule, MatSelectModule, MatIconModule, FormsModule, ReactiveFormsModule,
     MatDialogModule, MatToolbarModule, MatSidenavModule, MatListModule, MatTabsModule, MatGridListModule, MatMenuModule, MatStepperModule,
-    MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MatTableModule, MatPaginatorModule
+    MatSnackBarModule, MatDatepickerModule, MatNativeDateModule, MatTableModule, MatPaginatorModule, MatSlideToggleModule
   ],
   providers: [AppService, MatNativeDateModule],
-  entryComponents: [PanelLoginComponent, DialogRetrievePassword, DialogOverviewDeleteComponent, DialogOverviewModificationComponent],
+  entryComponents: [PanelLoginComponent, DialogRetrievePassword, DialogOverviewDeleteComponent, DialogOverviewModificationComponent, DialogCreateChevalComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

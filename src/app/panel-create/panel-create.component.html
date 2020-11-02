@@ -168,8 +168,11 @@
       <form>
         <ng-template matStepLabel>information général</ng-template>
         <mat-form-field>
+          <input matInput placeholder="Moniteur" value={{formCreateCours.moniteur}} disabled>
+        </mat-form-field><br>
+        <mat-form-field>
           <mat-label>Titre</mat-label>
-          <input matInput placeholder="titre du cour" name="name" [(ngModel)]="formCreateCours.titre" [formControl]="name" required>
+          <input matInput placeholder="Titre du cour" name="name" [(ngModel)]="formCreateCours.titre" [formControl]="name" required>
         </mat-form-field><br>
         <mat-form-field>
           <mat-label>Nombre d'élève</mat-label>

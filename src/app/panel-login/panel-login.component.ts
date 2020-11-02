@@ -23,9 +23,9 @@ export class PanelLoginComponent implements OnInit {
   emailPhoneChamp:string ="";
 
   //Data of the form that will be returned.
-  @Output() sentForm = new EventEmitter();
-  @Output() sentForm2 = new EventEmitter();
-  @Output() sentForm3 = new EventEmitter();
+  @Output() formulaireInscription = new EventEmitter();
+  @Output() formulaireRecupMdp = new EventEmitter();
+  @Output() formulaireConnexion = new EventEmitter();
 
   constructor(public dialog: MatDialog) {}
 
@@ -46,7 +46,7 @@ export class PanelLoginComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogRetrievePassword, {});
 
     dialogRef.afterClosed().subscribe(result => {
-      this.sentForm2.emit({obj:result});
+      this.formulaireRecupMdp.emit({obj:result});
     });
   }
 
@@ -58,14 +58,16 @@ export class PanelLoginComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log(result);
+      this.formConnexion.identifiant=result.identifiant;
+      this.formConnexion.password=result.password;
+      this.formulaireConnexion.emit({obj:this.formConnexion});
     });
   }
 
   inscription(){
     console.log(this.formInscription.licence);
     console.log(this.formInscription);
-    this.sentForm.emit({obj:this.formInscription});
+    this.formulaireInscription.emit({obj:this.formInscription});
   }
 
   connexion(){
@@ -76,7 +78,7 @@ export class PanelLoginComponent implements OnInit {
     }else{
       this.formConnexion.phone = this.emailPhoneChamp;
     }
-    this.sentForm3.emit({obj:this.formConnexion});
+    this.formulaireConnexion.emit({obj:this.formConnexion});
   }
 }
 

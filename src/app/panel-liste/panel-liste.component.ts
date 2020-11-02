@@ -15,7 +15,7 @@ export class PanelListeComponent implements OnInit {
   displayedColumnsUser: string[] = ['id', 'nom', 'prenom', 'role','email', 'phone', 'licence', 'modification', 'suppression'];
   displayedColumnsCheval: string[] = ['id', 'nom', 'type', 'poids', 'taille', 'modification', 'suppression'];
   //['id', 'titre', 'date', 'horaire', 'niveau', 'moniteur', 'modification', 'suppression'];
-  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','nbrCavalier', 'niveau', 'modification', 'suppression'];
+  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','moniteur','nbrCavalier', 'niveau', 'modification', 'suppression'];
 
   ELEMENT_DATA_USER: user[] = [];
   ELEMENT_DATA_CHEVAL: cheval[] = [];
@@ -30,10 +30,10 @@ export class PanelListeComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
 
   @Input() typePanel: String;
-  @Output() sentForm = new EventEmitter();
-  @Output() sentForm2 = new EventEmitter();
-  @Output() sentForm3 = new EventEmitter();
-  @Output() sentForm4 = new EventEmitter();
+  @Output() getAllObject = new EventEmitter();
+  @Output() deleteObject = new EventEmitter();
+  @Output() putObject = new EventEmitter();
+  @Output() retrieveObject = new EventEmitter();
   @Input() data: any;
   @Input() data2: any;
   @Input() data3: any;
@@ -41,14 +41,14 @@ export class PanelListeComponent implements OnInit {
   constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {
-    this.sentForm.emit({obj:this.donneeVide});
+    this.getAllObject.emit({obj:this.donneeVide});
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     // if change data
     if(changes['data']){
       if(this.data!=null){
-        if(this.typePanel == "Gestion des utilisateurs"){
+        if(this.typePanel == "Gestion des utilisateurs" || this.typePanel == 'Gestion des Administateur'){
           this.isData = true;
           this.ELEMENT_DATA_USER=[];
           this.ELEMENT_DATA_USER.length=0;
@@ -76,7 +76,7 @@ export class PanelListeComponent implements OnInit {
           this.ELEMENT_DATA_COUR.length=0;
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA_COUR);
           for(var i = 0; i<this.data.length; i++){
-            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,modification: 'Modifier',suppression: 'Supprimer'};
+            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,moniteur:this.data[i].moniteur,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,modification: 'Modifier',suppression: 'Supprimer'};
           }
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -157,14 +157,14 @@ export class PanelListeComponent implements OnInit {
       if(result != undefined){
         switch(result.typePanel){
           case 'Gestion des utilisateurs':
-            this.sentForm3.emit({obj:result.elem});
+            this.putObject.emit({obj:result.elem});
             break;
           case 'Gestion des chevaux':
-            this.sentForm3.emit({obj:result.elem});
+            this.putObject.emit({obj:result.elem});
             break;
           case 'Gestion des cours':
             result.elem.dateCours = this.formatdate(result.elem.dateCours);
-            this.sentForm3.emit({obj:result.elem});
+            this.putObject.emit({obj:result.elem});
             break;
         }
         this.ngOnInit();
@@ -174,26 +174,26 @@ export class PanelListeComponent implements OnInit {
 
   supprimer(element){
     if(this.typePanel == "Gestion des utilisateurs"){
-      this.sentForm2.emit({obj:element.id}); //send data
+      this.deleteObject.emit({obj:element.id}); //send data
     }
     if(this.typePanel == "Gestion des chevaux"){
-      this.sentForm2.emit({obj:element.id});
+      this.deleteObject.emit({obj:element.id});
     }
     if(this.typePanel == "Gestion des cours"){
-      this.sentForm2.emit({obj:element.id});
+      this.deleteObject.emit({obj:element.id});
     }
   }
 
   modifier(element){
     this.isGood = true;
     if(this.typePanel == "Gestion des utilisateurs"){
-      this.sentForm4.emit({obj:element.id}); //send data
+      this.retrieveObject.emit({obj:element.id}); //send data
     }
     if(this.typePanel == "Gestion des chevaux"){
-      this.sentForm4.emit({obj:element.id});
+      this.retrieveObject.emit({obj:element.id});
     }
     if(this.typePanel == "Gestion des cours"){
-      this.sentForm4.emit({obj:element.id});
+      this.retrieveObject.emit({obj:element.id});
     }
   }
 

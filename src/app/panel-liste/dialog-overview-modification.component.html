@@ -87,6 +87,10 @@
         <mat-card-content>
           <form class="example-form">
             <mat-form-field class="example-full-width">
+              <mat-label>Moniteur</mat-label>
+              <input matInput placeholder={{data.elem.moniteur}} name="moniteur" [(ngModel)]="data.elem.moniteur">
+            </mat-form-field><br>
+            <mat-form-field class="example-full-width">
               <mat-label>Titre</mat-label>
               <input matInput placeholder={{data.elem.titre}} name="titre" [(ngModel)]="data.elem.titre">
             </mat-form-field><br>

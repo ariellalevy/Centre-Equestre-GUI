@@ -3,7 +3,7 @@
   <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
 </mat-form-field>
 <div class="mat-elevation-z8">
-  <div *ngIf="typePanel == 'Gestion des utilisateurs' && isData==true">
+  <div *ngIf="(typePanel == 'Gestion des utilisateurs' || typePanel == 'Gestion des Administateur')&& isData==true">
     <mat-table #table [dataSource]="dataSource">
       <ng-container matColumnDef="id">
         <mat-header-cell *matHeaderCellDef> No. </mat-header-cell>
@@ -98,6 +98,10 @@
       <ng-container matColumnDef="horaire">
         <mat-header-cell *matHeaderCellDef> Horaire </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.horaire}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="moniteur">
+        <mat-header-cell *matHeaderCellDef> Moniteur </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.moniteur}} </mat-cell>
       </ng-container>
       <ng-container matColumnDef="nbrCavalier">
         <mat-header-cell *matHeaderCellDef> Nombres d'élèves </mat-header-cell>

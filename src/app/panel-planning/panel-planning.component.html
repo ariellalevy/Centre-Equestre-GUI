@@ -1,52 +1,47 @@
 <div *ngIf="user.role == 'cavalier'">
-  <p *ngFor="let planning of planningCours">
+  <div *ngFor="let plan of tabCourCheval">
     <mat-toolbar color="primary">
-      <span>{{planning.titre}} <br/>
-        {{planning.dateCours}}
+      <span>{{plan.titre}} <br/>
+        {{plan.dateCours}}
       </span>
       <span class="example-spacer"></span>
-      <span>{{planning.horaire}}</span>
+      <span>{{plan.horaire}}</span>
     </mat-toolbar>
     <br/>
-    Moniteur: {{planning.moniteur}} <br/>
-    Niveau: {{planning.niveau}} <br/>
-    Cheval: {{planning.cheval}}<br/>
-  </p>
+    Moniteur: {{plan.moniteur}} <br/>
+    Niveau: {{plan.niveau}} <br/>
+    <div *ngFor="let horse of planning">
+      <div *ngIf="plan.id==horse.idCour">
+        Cheval: {{horse.cheval}}<br/>
+      </div>
+    </div>
+  </div>
 </div>
 <div *ngIf="user.role == 'moniteur'">
-  <p> <!--  *ngFor="let planning of planningCours" -->
+  <div *ngFor="let plan of planning">
     <mat-toolbar color="primary">
-      <span>Cour débutant <br/>
-        19 octobre 2020
+      <span>{{plan.titre}} <br/>
+        {{plan.dateCours}}
       </span>
       <span class="example-spacer"></span>
-      <span>15:00-16:30</span>
+      <span>{{plan.horaire}}</span>
     </mat-toolbar>
     <br/>
-    Moniteur: Laurent dupont <br/>
-    Niveau: 4 <br/>
-    Liste des élèves:<br/>
-    Marc: 
-    <mat-form-field>
-      <mat-label>Selectionner le cheval</mat-label>
-      <mat-select [(value)]="selected">
-        <mat-option>None</mat-option>
-        <mat-option value="Maurice">Maurice</mat-option>
-        <mat-option value="Luna">Luna</mat-option>
-        <mat-option value="Kafir">Kafir</mat-option>
-      </mat-select>
-    </mat-form-field><br/>
-    Emma:
-    <mat-form-field>
-      <mat-label>Selectionner le cheval</mat-label>
-      <mat-select [(value)]="selected2">
-        <mat-option>None</mat-option>
-        <mat-option value="Maurice">Maurice</mat-option>
-        <mat-option value="Luna">Luna</mat-option>
-        <mat-option value="Kafir">Kafir</mat-option>
-      </mat-select>
-    </mat-form-field><br/>
-    <button mat-raised-button color="primary" (click)="validation()">Valider</button>
-  </p>
+    Moniteur: {{plan.moniteur}} <br/>
+    Niveau: {{plan.niveau}} <br/>
+    <div *ngFor="let student of planning2">
+      <div *ngIf="plan.id==student.idCour">
+        {{student.cavalier}}: 
+        <mat-form-field>
+          <mat-label>Selectionner le cheval</mat-label>
+          <mat-select [(ngModel)]="student.cheval">
+            <mat-option [value]="cheval.nom" *ngFor="let cheval of data">{{cheval.nom}}</mat-option>
+          </mat-select>
+        </mat-form-field><br/>
+      </div>
+    </div>
+    <button mat-button (click)="openDialogCheval()" color="accent">Pas assez de chevaux?</button><br/>
+    <button mat-raised-button color="primary" (click)="validation(planning2)">Valider</button><br/><br/>
+  </div>
 </div>
 

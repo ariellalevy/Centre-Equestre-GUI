@@ -33,7 +33,7 @@ export class PanelCreateComponent implements OnInit {
   //items retrieved when sending the request rest and display in the bar nenus
   @Input() typePanel:any;
   //Send object that is type of panel for exemple 'operator'
-  @Output() sendform = new EventEmitter();
+  @Output() formulaireAjout = new EventEmitter();
 
   constructor() {}
 
@@ -49,6 +49,8 @@ export class PanelCreateComponent implements OnInit {
     this.formCreateUser = new creationUser();
     this.formCreateCheval = new creationCheval();
     this.formCreateCours = new creationCours();
+    var user = JSON.parse(localStorage.getItem('userCourrant'));
+    this.formCreateCours.moniteur = user.name + " " + user.lastname;
   }
 
   formatdate(date){
@@ -98,14 +100,14 @@ export class PanelCreateComponent implements OnInit {
   ajout(){
     switch(this.typePanel){
       case 'Gestion des utilisateurs':
-        this.sendform.emit({obj:this.formCreateUser});
+        this.formulaireAjout.emit({obj:this.formCreateUser});
         break;
       case 'Gestion des chevaux':
-        this.sendform.emit({obj:this.formCreateCheval});
+        this.formulaireAjout.emit({obj:this.formCreateCheval});
         break;
       case 'Gestion des cours':
         this.formCreateCours.dateCours = this.formatdate(this.formCreateCours.dateCours);
-        this.sendform.emit({obj:this.formCreateCours});
+        this.formulaireAjout.emit({obj:this.formCreateCours});
         break;
     };
   }

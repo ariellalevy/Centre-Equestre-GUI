@@ -1,0 +1,33 @@
+<mat-card>
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Ajouter un nouveau cheval</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <mat-label>Nom du cheval</mat-label>
+          <input matInput placeholder={{data.elem.nom}} name="nom" [(ngModel)]="data.elem.nom">
+        </mat-form-field><br>
+        <mat-form-field>
+          <mat-label>Type de cheval</mat-label>
+          <mat-select  [(ngModel)]="data.elem.type" [(value)]="data.elem.type" name="type">
+            <mat-option value="cheval">Cheval</mat-option>
+            <mat-option value="poney">Poney</mat-option>
+          </mat-select>
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Taille</mat-label>
+          <input matInput type="number" placeholder={{data.elem.taille}} name="taille" [(ngModel)]="data.elem.taille">
+        </mat-form-field><br>
+        <mat-form-field class="example-full-width">
+          <mat-label>Poids</mat-label>
+          <input matInput type="number" maxlength="10" placeholder={{data.elem.poids}} name="poids" [(ngModel)]="data.elem.poids"> 
+        </mat-form-field><br>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Mettre à jour</button>
+      <button mat-button color="warm"  (click)="onNoClick()">annuler</button>
+    </mat-card-actions>
+</mat-card>

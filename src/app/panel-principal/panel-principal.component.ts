@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,   Input } from '@angular/core';
 import { AppService } from '../app.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
 
@@ -8,7 +8,10 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   styleUrls: ['./panel-principal.component.css']
 })
 export class PanelPrincipalComponent {
+  resultat:any
+  utilisateur:any;
   title = 'Centre-Equestre-GUI';
+
   isLogin:boolean=false
 
   constructor(private restservice: AppService,private _snackBar: MatSnackBar) {}
@@ -22,8 +25,22 @@ export class PanelPrincipalComponent {
   }
 
   connexion(event){
+    this.restservice.login(event)
+      .subscribe(res => { 
+        this.resultat = res
+        if((this.resultat.status == 200)&&(this.resultat.message=="User Logged In Successfully!")){
+          this.openSnackBar("Vous êtes connecté", 'Close')
+          this.utilisateur = this.resultat.userReponse;
+          this.isLogin=true;
+        }if(this.resultat.status == 0){
+          this.openSnackBar(this.resultat.message, 'Close')
+        }
+      },err => console.error(err));
+  }
+
+  changeLoginStatus(event){
     console.log(event)
-    this.isLogin=true;
+    this.isLogin=event
   }
 
   openSnackBar(message: string, action: string) {

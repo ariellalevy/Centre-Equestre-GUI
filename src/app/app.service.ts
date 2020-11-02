@@ -8,45 +8,82 @@ export class AppService {
 
   conf: Object;
   configUrl = '../assets/config.json';
+  user
 
-  constructor(private http: HttpClient) { this.getConfig(); }
+  constructor(private http: HttpClient) { 
+    this.getConfig(); 
+    this.user = JSON.parse(localStorage.getItem('userCourrant'));
+  }
 
   getConfig() {
     return this.http.get(this.configUrl).subscribe(conf => {this.conf = conf});
   }
 
-  public getUser(){
-    return this.http.get(this.conf['urlBase'] + "user/1");
+  public login(corps){
+    var body = {email:corps.obj.email,phoneNumber:corps.obj.phone,password:corps.obj.password,firstName:corps.obj.identifiant}
+    return this.http.post(this.conf['urlBase'] +  "login", body, HTTP_OPTIONS)
+  }
+
+  public logout(event){
+    return this.http.get(this.conf['urlBase'] + "logout/" + event, {responseType: 'text'});
+  }
+
+  public getUser(id){
+    return this.http.get(this.conf['urlBase'] + "user/" + id);
   }
 
   public get(typePanel){
     switch(typePanel){
       case 'Gestion des utilisateurs':
         return this.http.get(this.conf['urlBase'] +  "users", HTTP_OPTIONS)
+      case 'Gestion des Administateur':
+        return this.http.get(this.conf['urlBase'] +  "usersAdmin", HTTP_OPTIONS)
       case 'Gestion des chevaux':
         return this.http.get(this.conf['urlBase'] +  "chevaux", HTTP_OPTIONS)
       case 'Gestion des cours':
         return this.http.get(this.conf['urlBase'] +  "cours", HTTP_OPTIONS)
       case 'Planning de cours':
-        return this.http.get(this.conf['urlBase'] +  "cours", HTTP_OPTIONS)
+        if(this.user.role == "cavalier"){
+          return this.http.get(this.conf['urlBase'] +  "cours", HTTP_OPTIONS)
+        }else{
+          return this.http.get(this.conf['urlBase'] +  "chevaux", HTTP_OPTIONS)
+        }
     }
   }
 
+  getList(event, typePanel){
+    var user = JSON.parse(localStorage.getItem('userCourrant'));
+    switch(typePanel){
+      case 'Planning de cours':
+        if(user.role=="moniteur"){
+          return this.http.get(this.conf['urlBase'] +  "listCavalierCheval", HTTP_OPTIONS)
+        }
+    }
+  }
+
+  getById(event,username){
+    return this.http.get(this.conf['urlBase'] +  "getByIdCour?idCour=" + event.obj + "&cavalier=" + username, HTTP_OPTIONS)
+  }
+
   getobjet(event, typePanel){
+    var user = JSON.parse(localStorage.getItem('userCourrant'));
     switch(typePanel){
       case 'Gestion des utilisateurs':
         return this.http.get(this.conf['urlBase'] +  "user/" + event.obj, HTTP_OPTIONS)
       case 'Gestion des chevaux':
         return this.http.get(this.conf['urlBase'] +  "cheval/" + event.obj, HTTP_OPTIONS)
       case 'Gestion des cours':
-        console.log(event)
         if(event.obj == null || event.obj == undefined){
           return this.http.get(this.conf['urlBase'] +  "cour/" + event, HTTP_OPTIONS)
         }else{
           return this.http.get(this.conf['urlBase'] +  "cour/" + event.obj, HTTP_OPTIONS)
         }
       case 'Planning de cours':
-        return this.http.get(this.conf['urlBase'] +  "courCavalier?cavalier=" + event.obj, HTTP_OPTIONS)
+        if(user.role=="cavalier"){
+          return this.http.get(this.conf['urlBase'] +  "idByCavalier?cavalier=" + event.obj, HTTP_OPTIONS)
+        }else{
+          return this.http.get(this.conf['urlBase'] +  "coursMoniteur?moniteur=" + event.obj, HTTP_OPTIONS)
+        }
     }
   }
 
@@ -56,10 +93,10 @@ export class AppService {
       case 'Informations utilisateur':
         if(corps.obj.type == 'modificationInformation'){
           body = {firstName:corps.obj.firstName,lastName:corps.obj.lastName,email:corps.obj.email,password:corps.obj.password,phoneNumber:corps.obj.phoneNumber,licenceNumber:corps.obj.licenceNumber,role:corps.obj.role};
-          return this.http.put(this.conf['urlBase'] +  "user/1", body, HTTP_OPTIONS)
+          return this.http.put(this.conf['urlBase'] +  "user/" + this.user.id, body, HTTP_OPTIONS)
         }if(corps.obj.type == 'modificationPassword'){
           body = {password:corps.obj.password};
-          return this.http.put(this.conf['urlBase'] +  "user/1", body, HTTP_OPTIONS)
+          return this.http.put(this.conf['urlBase'] +  "user/" + this.user.id, body, HTTP_OPTIONS)
         }
       case 'Gestion des utilisateurs':
         body = {firstName:corps.obj.firstName,lastName:corps.obj.lastName,email:corps.obj.email,password:corps.obj.password,phoneNumber:corps.obj.phoneNumber,licenceNumber:corps.obj.licenceNumber,role:corps.obj.role};
@@ -68,10 +105,11 @@ export class AppService {
         body = {nom:corps.obj.nom,type:corps.obj.type,poids:corps.obj.poids,taille:corps.obj.taille};
         return this.http.put(this.conf['urlBase'] +  "cheval/" + corps.obj.id, body, HTTP_OPTIONS)
       case 'Gestion des cours':
-        console.log(corps.obj.dateCours)
         body = {titre: corps.obj.titre,dateCours: corps.obj.dateCours,horaire: corps.obj.horaire,nbrCavalier: corps.obj.nbrCavalier,niveau: corps.obj.niveau,idMoniteur: corps.obj.idMoniteur};
         return this.http.put(this.conf['urlBase'] +  "cour/" + corps.obj.id, body, HTTP_OPTIONS)
-        
+      case 'Planning de cours':
+        body = body={cheval:corps.obj.cheval};
+        return this.http.put(this.conf['urlBase'] +  "addCheval/" + corps.obj.id, body, HTTP_OPTIONS)
     }
   }
 
@@ -85,11 +123,11 @@ export class AppService {
         body = {nom:corps.obj.nom,type:corps.obj.type,poids:corps.obj.poids,taille:corps.obj.taille};
         return this.http.post(this.conf['urlBase'] +  "cheval", body, HTTP_OPTIONS)
       case 'Gestion des cours':
-        body = {titre: corps.obj.titre,dateCours: corps.obj.dateCours,horaire: corps.obj.horaire,nbrCavalier: corps.obj.nbrCavalier,niveau: corps.obj.niveau};
+        body = {titre: corps.obj.titre,dateCours: corps.obj.dateCours,horaire: corps.obj.horaire,nbrCavalier: corps.obj.nbrCavalier,niveau: corps.obj.niveau,moniteur:corps.obj.moniteur};
         return this.http.post(this.conf['urlBase'] +  "cour", body, HTTP_OPTIONS)
       case 'Planning de cours':
         body = body={idCour:corps.obj.idCour,moniteur:corps.obj.moniteur,cavalier:corps.obj.cavalier,cheval:corps.obj.cheval};
-        return this.http.post(this.conf['urlBase'] +  "courDetail", body, HTTP_OPTIONS)
+        return this.http.post(this.conf['urlBase'] +  "addCavalierCheval", body, HTTP_OPTIONS)
     }
   }
 
@@ -105,6 +143,8 @@ export class AppService {
       case 'Gestion des cours':
         id = corps.obj;
         return this.http.delete(this.conf['urlBase'] +  "cour/" + id, HTTP_OPTIONS)
+      case 'Planning de cours':
+        return this.http.delete(this.conf['urlBase'] +  "deleteCavalierCheval/" + corps, HTTP_OPTIONS)
     }
   }
 

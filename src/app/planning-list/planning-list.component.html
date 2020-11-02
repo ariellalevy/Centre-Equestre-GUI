@@ -37,6 +37,10 @@
           <mat-header-cell *matHeaderCellDef> Inscription </mat-header-cell>
           <mat-cell *matCellDef="let element"><button type="button" mat-raised-button color="primary" (click)="inscripton(element)"> {{element.inscription}}</button></mat-cell>
         </ng-container>
+        <ng-container matColumnDef="desinscription">
+          <mat-header-cell *matHeaderCellDef> Desinscription </mat-header-cell>
+          <mat-cell *matCellDef="let element"><button type="button" mat-raised-button color="warn" (click)="desinscription(element)"> {{element.desinscription}}</button></mat-cell>
+        </ng-container>
         <mat-header-row *matHeaderRowDef="displayedColumnsCour"></mat-header-row>
         <mat-row *matRowDef="let row; columns: displayedColumnsCour;"></mat-row>
       </mat-table>

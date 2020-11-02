@@ -42,6 +42,7 @@ export interface cour{
     titre:any;
     dateCours:any;
     horaire:any;
+    moniteur:any;
     nbrCavalier:any;
     niveau:any;
     suppression: string;
@@ -57,10 +58,12 @@ export interface cours{
     niveau:any;
     moniteur:any
     inscription: string;
+    desinscription: string;
 }
 
 export class connexion{
     type: string="connexion";
+    identifiant:string="";
     email:string="";
     password:string="";
     phone:string="";
@@ -70,6 +73,7 @@ export class connexion{
 
 export class creationUser{
     type: string="creation";
+    id:number=0;
     email:string="";
     password:string="";
     name:string="";
@@ -121,6 +125,7 @@ export class creationCours{
     horaire:string="";
     nbrCavalier:string="";
     niveau:string="";
+    moniteur:string=""
     // empty constructor
     constructor(){}
 }

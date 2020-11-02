@@ -12,15 +12,15 @@ export class UserInfoComponent implements OnInit, OnChanges {
   dataInfos:dataInfos;
   donneevide:string="";
 
-  @Output() sentForm = new EventEmitter();
-  @Output() sentForm2 = new EventEmitter();
-  @Output() sentForm3 = new EventEmitter();
+  @Output() modificationUser = new EventEmitter();
+  @Output() retrieveUser = new EventEmitter();
+  @Output() modificationMdp = new EventEmitter();
   @Input() data: any;
 
   constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.sentForm2.emit({obj:this.donneevide});
+    this.retrieveUser.emit({obj:this.donneevide});
     this.dataInfos = new dataInfos();
   }
 
@@ -47,12 +47,12 @@ export class UserInfoComponent implements OnInit, OnChanges {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      this.sentForm3.emit({obj:result});
+      this.modificationMdp.emit({obj:result});
     });
   }
 
   modifier(){
-    this.sentForm.emit({obj:this.dataInfos});
+    this.modificationUser.emit({obj:this.dataInfos});
   }
 
 }
