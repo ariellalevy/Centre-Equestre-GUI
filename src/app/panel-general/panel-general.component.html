@@ -63,7 +63,7 @@
                 <app-planning-list [typePanel]="fillerContent.text" (getAllObject)="getAll(fillerContent.text)" (inscriptionCour)="post($event, fillerContent.text)" (desinscriptionCour)="del($event, fillerContent.text)" [data]="data" [data2]="data2"></app-planning-list>
               </div>
               <div *ngIf="this.user.role == 'moniteur'">
-                <app-panel-planning [typePanel]="fillerContent.text" (getCourUser)="getCours($event, fillerContent.text)" (getListEleve)="getListEleve($event, fillerContent.text)" (getAllObject)="getAll(fillerContent.text)" (formulaireAddChevaux)="post($event, 'Gestion des chevaux')" (addChevauxToCavalier)="put($event, fillerContent.text)" [planning]="planning" [planning2]="planning2" [data]="data"></app-panel-planning>
+                <app-panel-planning [typePanel]="fillerContent.text" (getCourUser)="getCours($event, fillerContent.text)" (getListEleve)="getListEleve($event, fillerContent.text)" (getAllObject)="getAll(fillerContent.text)" (formulaireAddChevaux)="post($event, 'Gestion des chevaux')" (addChevauxToCavalier)="put($event, fillerContent.text)" (delCour)="del($event, 'Gestion des cours')" [planning]="planning" [planning2]="planning2" [data]="data"></app-panel-planning>
               </div>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { Component,   Input } from '@angular/core';
 import { AppService } from '../app.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-panel-principal',
@@ -11,10 +12,11 @@ export class PanelPrincipalComponent {
   resultat:any
   utilisateur:any;
   title = 'Centre-Equestre-GUI';
+  compteur:number=0;
 
   isLogin:boolean=false
 
-  constructor(private restservice: AppService,private _snackBar: MatSnackBar) {}
+  constructor(private restservice: AppService,private _snackBar: MatSnackBar, private router: Router) {}
 
   inscription(item) {
     this.restservice.postInscription(item).subscribe(res => { this.openSnackBar("FELICITATION! vous inscris vous êtes maintenant inviter a vous connecter.", 'Close')},err => console.error(err));
@@ -33,7 +35,15 @@ export class PanelPrincipalComponent {
           this.utilisateur = this.resultat.userReponse;
           this.isLogin=true;
         }if(this.resultat.status == 0){
-          this.openSnackBar(this.resultat.message, 'Close')
+          console.log(this.compteur)
+          if(this.compteur == 3){
+            this.router.navigateByUrl('/password')
+          }else if(this.resultat.message == 'Password Incorrect Error!!'){
+            this.compteur++;
+            this.openSnackBar(this.resultat.message, 'Close')
+          }else{
+            this.openSnackBar(this.resultat.message, 'Close')
+          }
         }
       },err => console.error(err));
   }

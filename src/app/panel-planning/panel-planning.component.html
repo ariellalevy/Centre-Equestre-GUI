@@ -29,19 +29,26 @@
     <br/>
     Moniteur: {{plan.moniteur}} <br/>
     Niveau: {{plan.niveau}} <br/>
-    <div *ngFor="let student of planning2">
-      <div *ngIf="plan.id==student.idCour">
-        {{student.cavalier}}: 
-        <mat-form-field>
-          <mat-label>Selectionner le cheval</mat-label>
-          <mat-select [(ngModel)]="student.cheval">
-            <mat-option [value]="cheval.nom" *ngFor="let cheval of data">{{cheval.nom}}</mat-option>
-          </mat-select>
-        </mat-form-field><br/>
+    Etat: {{plan.compteurNbrCavalier}}/{{plan.nbrCavalier}}
+    <div *ngIf="plan.is24before == true">
+      <div *ngIf="plan.compteurNbrCavalier < 4">
+        <br/>Il n'y a pas assez de cavalier inscrit a ce cours si vous souhaitez l'annuler cliquer sur le bouton ci dessous: <br/>
+        <button mat-button (click)="supprCours(plan)" color="warn">Annuler le cours</button><br/>
       </div>
+      <div *ngFor="let student of planning2">
+        <div *ngIf="plan.id==student.idCour">
+          {{student.cavalier}}: 
+          <mat-form-field>
+            <mat-label>Selectionner le cheval</mat-label>
+            <mat-select [(ngModel)]="student.cheval">
+              <mat-option [value]="cheval.nom" *ngFor="let cheval of data">{{cheval.nom}}</mat-option>
+            </mat-select>
+          </mat-form-field><br/>
+        </div>
+      </div>
+      <button mat-button (click)="openDialogCheval()" color="accent">Pas assez de chevaux?</button><br/>
+      <button mat-raised-button color="primary" (click)="validation(planning2)">Valider</button><br/><br/>
     </div>
-    <button mat-button (click)="openDialogCheval()" color="accent">Pas assez de chevaux?</button><br/>
-    <button mat-raised-button color="primary" (click)="validation(planning2)">Valider</button><br/><br/>
   </div>
 </div>
 

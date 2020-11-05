@@ -27,6 +27,7 @@ export class PanelPlanningComponent implements OnInit {
   @Output() getAllObject = new EventEmitter();
   @Output() formulaireAddChevaux = new EventEmitter();
   @Output() addChevauxToCavalier = new EventEmitter();
+  @Output() delCour = new EventEmitter();
 
   constructor(public dialog: MatDialog) { }
 
@@ -44,6 +45,7 @@ export class PanelPlanningComponent implements OnInit {
       if(this.planning!=null){
         if(this.typePanel == 'Planning de cours'){
           if(this.user.role == "moniteur"){
+            console.log(this.planning);
             this.getListEleve.emit({});
           }else{
             console.log(this.planning)
@@ -61,6 +63,10 @@ export class PanelPlanningComponent implements OnInit {
         }
       }
     }
+  }
+
+  supprCours(event){
+    this.delCour.emit({obj:event.id});
   }
 
   validation(event){

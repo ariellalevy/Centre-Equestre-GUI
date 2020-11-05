@@ -15,7 +15,7 @@ export class PanelListeComponent implements OnInit {
   displayedColumnsUser: string[] = ['id', 'nom', 'prenom', 'role','email', 'phone', 'licence', 'modification', 'suppression'];
   displayedColumnsCheval: string[] = ['id', 'nom', 'type', 'poids', 'taille', 'modification', 'suppression'];
   //['id', 'titre', 'date', 'horaire', 'niveau', 'moniteur', 'modification', 'suppression'];
-  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','moniteur','nbrCavalier', 'niveau', 'modification', 'suppression'];
+  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','moniteur','nbrCavalier', 'niveau', 'ratio', 'modification', 'suppression'];
 
   ELEMENT_DATA_USER: user[] = [];
   ELEMENT_DATA_CHEVAL: cheval[] = [];
@@ -71,12 +71,14 @@ export class PanelListeComponent implements OnInit {
           this.dataSource.sort = this.sort;
         }
         if(this.typePanel == "Gestion des cours"){
+          // Rajouter ratio place pris/place disponible
           this.isData = true;
           this.ELEMENT_DATA_COUR=[];
           this.ELEMENT_DATA_COUR.length=0;
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA_COUR);
           for(var i = 0; i<this.data.length; i++){
-            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,moniteur:this.data[i].moniteur,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,modification: 'Modifier',suppression: 'Supprimer'};
+            var ratioCavalier = this.data[i].compteurNbrCavalier + "/" + this.data[i].nbrCavalier
+            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,moniteur:this.data[i].moniteur,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau, ratio:ratioCavalier,modification: 'Modifier',suppression: 'Supprimer'};
           }
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;

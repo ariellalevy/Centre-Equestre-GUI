@@ -111,6 +111,10 @@
         <mat-header-cell *matHeaderCellDef> niveau/galop </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.niveau}} </mat-cell>
       </ng-container>
+      <ng-container matColumnDef="ratio">
+        <mat-header-cell *matHeaderCellDef> ratio de cavalier </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.ratio}} </mat-cell>
+      </ng-container>
       <ng-container matColumnDef="suppression">
         <mat-header-cell *matHeaderCellDef> Supprimer </mat-header-cell>
         <mat-cell *matCellDef="let element"><button type="button" mat-raised-button color="warn" (click)="openDialogDelete(element)"> {{element.suppression}}</button> </mat-cell>

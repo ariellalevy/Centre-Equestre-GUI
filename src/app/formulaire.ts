@@ -45,6 +45,7 @@ export interface cour{
     moniteur:any;
     nbrCavalier:any;
     niveau:any;
+    ratio:any;
     suppression: string;
     modification: string;
 }
@@ -56,7 +57,8 @@ export interface cours{
     horaire:any;
     nbrCavalier:any;
     niveau:any;
-    moniteur:any
+    moniteur:any;
+    ratio:any;
     inscription: string;
     desinscription: string;
 }

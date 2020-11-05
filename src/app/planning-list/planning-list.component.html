@@ -30,9 +30,13 @@
           <mat-cell *matCellDef="let element"> {{element.niveau}} </mat-cell>
         </ng-container>
         <ng-container matColumnDef="moniteur">
-            <mat-header-cell *matHeaderCellDef> Moniteur </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.moniteur}} </mat-cell>
-          </ng-container>
+          <mat-header-cell *matHeaderCellDef> Moniteur </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.moniteur}} </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="ratio">
+          <mat-header-cell *matHeaderCellDef> Ratio de cavalier </mat-header-cell>
+          <mat-cell *matCellDef="let element"> {{element.ratio}} </mat-cell>
+        </ng-container>
         <ng-container matColumnDef="inscription">
           <mat-header-cell *matHeaderCellDef> Inscription </mat-header-cell>
           <mat-cell *matCellDef="let element"><button type="button" mat-raised-button color="primary" (click)="inscripton(element)"> {{element.inscription}}</button></mat-cell>

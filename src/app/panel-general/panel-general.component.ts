@@ -86,7 +86,6 @@ export class PanelGeneralComponent implements OnDestroy {
         if(this.user.role=="cavalier"){
           this.fillerNav.push({icon: "assignment", text: "Planning de cours"});
         }if(this.user.role=="moniteur"){
-          this.fillerNav.push({icon: "card_membership", text: "Gestion des chevaux"})
           this.fillerNav.push({icon: "account_balance", text: "Gestion des cours"})
           this.fillerNav.push({icon: "assignment", text: "Planning de cours"} )
         }if(this.user.role=="admin"){

@@ -11,9 +11,11 @@ import { cours, courSpecifique } from '../formulaire'
 })
 
 export class PlanningListComponent implements OnInit {
-  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','nbrCavalier', 'niveau', 'moniteur', 'inscription','desinscription'];
+  displayedColumnsCour: string[] = ['id', 'titre', 'date', 'horaire','nbrCavalier', 'niveau', 'moniteur','ratio', 'inscription','desinscription'];
+  displayedColumnsCourComplet: string[] = ['id', 'titre', 'date', 'horaire','nbrCavalier', 'niveau', 'moniteur','ratio', 'desinscription'];
 
   ELEMENT_DATA_COUR: cours[] = [];
+  ELEMENT_DATA_COUR_COMPLET: cours[] = [];
   dataSource:any;
 
   courSpecifique:courSpecifique
@@ -44,12 +46,19 @@ export class PlanningListComponent implements OnInit {
     if(changes['data']){
       if(this.data!=null){
         if(this.typePanel == "Planning de cours"){
+          // si ratio complet afficher le cour avec sans les bouton inscription/desincription et avec bannier complet
           this.isData = true;
           this.ELEMENT_DATA_COUR=[];
           this.ELEMENT_DATA_COUR.length=0;
           this.dataSource = new MatTableDataSource(this.ELEMENT_DATA_COUR);
           for(var i = 0; i<this.data.length; i++){
-            this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,moniteur: this.data[i].moniteur,inscription: "S'inscrire", desinscription:"se désinscrire"};
+            var ratioCavalier = this.data[i].compteurNbrCavalier + "/" + this.data[i].nbrCavalier
+            if(this.data[i].compteurNbrCavalier == this.data[i].nbrCavalier){
+              this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,moniteur: this.data[i].moniteur,ratio: ratioCavalier,inscription: "", desinscription:"Complet"};
+            }else{
+              this.ELEMENT_DATA_COUR[i]={id: this.data[i].id,titre: this.data[i].titre,dateCours: this.data[i].dateCours,horaire: this.data[i].horaire,nbrCavalier: this.data[i].nbrCavalier,niveau: this.data[i].niveau,moniteur: this.data[i].moniteur,ratio: ratioCavalier,inscription: "S'inscrire", desinscription:"se désinscrire"};
+            }
+            
           }
           this.dataSource.paginator = this.paginator;
           this.dataSource.sort = this.sort;
@@ -88,7 +97,11 @@ export class PlanningListComponent implements OnInit {
 
   desinscription(element){
     if(this.typePanel == "Planning de cours"){
-      this.desinscriptionCour.emit({obj:element.id});
+      if(element.desinscription!='Complet'){
+        this.desinscriptionCour.emit({obj:element.id});
+      }else{
+        console.log("complet")
+      }
     }
   }
 }
