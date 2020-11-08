@@ -7,7 +7,7 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "dir && ng serve",
+    "start": "ng serve && cat /app/.npm/_logs/2020-11-08T10_35_24_587Z-debug.log",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
