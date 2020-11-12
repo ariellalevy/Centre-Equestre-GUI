@@ -1,4 +1,4 @@
-<div *ngIf="typePanel == 'Gestion des utilisateurs'">
+<div *ngIf="typePanel == 'Gestion des utilisateurs' || typePanel == 'Gestion des Administateur'">
   <mat-horizontal-stepper linear #stepper>
     <mat-step>
       <form>
@@ -46,14 +46,20 @@
     <mat-step>
       <form>
         <ng-template matStepLabel>Gestion des role </ng-template>
-        <mat-form-field>
-          <mat-label>Role dans le centre équestre</mat-label>
-          <mat-select  [(ngModel)]="formCreateUser.role" name="role" [formControl]="role" required>
-              <mat-option value="cavalier">Cavalier</mat-option>
-              <mat-option value="moniteur">Moniteur</mat-option>
-              <mat-option value="administateur">administateur</mat-option>
-          </mat-select>
-      </mat-form-field><br>
+        <div *ngIf="typePanel == 'Gestion des utilisateurs'">
+          <mat-form-field>
+            <mat-label>Role dans le centre équestre</mat-label>
+            <mat-select  [(ngModel)]="formCreateUser.role" name="role" [formControl]="role" required>
+                <mat-option value="cavalier">Cavalier</mat-option>
+                <mat-option value="moniteur">Moniteur</mat-option>
+            </mat-select>
+          </mat-form-field><br>
+        </div>
+        <div *ngIf="typePanel == 'Gestion des Administateur'">
+          <mat-form-field>
+            <input matInput placeholder="Rôle" [(ngModel)]="formCreateUser.role" value="admin" name="role" disabled>
+          </mat-form-field>
+        </div>
         <div>
           <button mat-button color="accent" matStepperPrevious>Précédent</button>
           <button mat-button color="primary" matStepperNext>Suivant</button>

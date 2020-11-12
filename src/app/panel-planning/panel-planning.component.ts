@@ -63,6 +63,11 @@ export class PanelPlanningComponent implements OnInit {
         }
       }
     }
+    if(changes['planning2']){
+      if(this.planning2!=null){
+        console.log(this.planning2);
+      }
+    }
   }
 
   supprCours(event){

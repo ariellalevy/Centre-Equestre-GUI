@@ -1,4 +1,4 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
+import {Component, OnInit, Input, Output, EventEmitter, SimpleChanges} from '@angular/core';
 import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
 import { creationUser, creationCheval, creationCours } from '../formulaire';
 import {MatDatepickerInputEvent} from '@angular/material/datepicker';
@@ -14,6 +14,8 @@ export class PanelCreateComponent implements OnInit {
   formCreateUser: creationUser;
   formCreateCheval: creationCheval;
   formCreateCours: creationCours;
+
+  user:any;
 
   email = new FormControl('', [Validators.required, Validators.email]);
   password = new FormControl('', [Validators.required]);
@@ -35,7 +37,9 @@ export class PanelCreateComponent implements OnInit {
   //Send object that is type of panel for exemple 'operator'
   @Output() formulaireAjout = new EventEmitter();
 
-  constructor() {}
+  constructor() {
+    this.ngOnInit();
+  }
 
   getErrorMessage() {
     if (this.email.hasError('required')) {
@@ -49,8 +53,11 @@ export class PanelCreateComponent implements OnInit {
     this.formCreateUser = new creationUser();
     this.formCreateCheval = new creationCheval();
     this.formCreateCours = new creationCours();
-    var user = JSON.parse(localStorage.getItem('userCourrant'));
-    this.formCreateCours.moniteur = user.name + " " + user.lastname;
+    this.user = JSON.parse(localStorage.getItem('userCourrant'));
+    this.formCreateCours.moniteur = this.user.name + " " + this.user.lastname;
+    if(this.user.role="SuperAdmin"){
+      this.formCreateUser.role = "admin";
+    }
   }
 
   formatdate(date){
@@ -99,6 +106,9 @@ export class PanelCreateComponent implements OnInit {
 
   ajout(){
     switch(this.typePanel){
+      case 'Gestion des Administateur':
+        this.formulaireAjout.emit({obj:this.formCreateUser});
+        break;
       case 'Gestion des utilisateurs':
         this.formulaireAjout.emit({obj:this.formCreateUser});
         break;

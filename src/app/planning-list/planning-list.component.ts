@@ -43,6 +43,13 @@ export class PlanningListComponent implements OnInit {
 
   ngOnChanges(changes: SimpleChanges): void {
     // if change data
+    if(changes['typePanel']){
+      if(this.typePanel!=null){
+        if(this.typePanel == "Planning de cours"){
+          this.ngOnInit();
+        }
+      }
+    }
     if(changes['data']){
       if(this.data!=null){
         if(this.typePanel == "Planning de cours"){

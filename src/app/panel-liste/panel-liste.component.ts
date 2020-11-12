@@ -29,6 +29,7 @@ export class PanelListeComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  @Input() tab: any;
   @Input() typePanel: String;
   @Output() getAllObject = new EventEmitter();
   @Output() deleteObject = new EventEmitter();
@@ -45,6 +46,20 @@ export class PanelListeComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if(changes['typePanel']){
+      if(this.typePanel!=null){
+        if(this.typePanel == "Planning de cours" || this.typePanel == "Gestion des utilisateurs" || this.typePanel == 'Gestion des Administateur'
+            || this.typePanel == "Gestion des chevaux" || this.typePanel == "Gestion des cours"){
+          this.ngOnInit();
+        }
+      }
+    }
+    if(changes['tab']){
+      if(this.tab!=null){
+        this.ngOnInit();
+        this.ngOnInit();
+      }
+    }
     // if change data
     if(changes['data']){
       if(this.data!=null){
@@ -88,7 +103,7 @@ export class PanelListeComponent implements OnInit {
     if(changes['data2']){
       if(this.data2!=null){
         if(this.isGood == true){
-          if(this.typePanel == "Gestion des utilisateurs"){
+          if(this.typePanel == "Gestion des utilisateurs" || this.typePanel == 'Gestion des Administateur'){
             return this.openDialogModification(this.data2);
           }
           if(this.typePanel == "Gestion des chevaux"){
@@ -101,23 +116,23 @@ export class PanelListeComponent implements OnInit {
       }
     }
     if(changes['data3']){
-      if(this.data!=null){
-        if(this.typePanel == "Gestion des utilisateurs"){
-          if(this.data3.type == "deleteUser" && this.data3.status == 200){
+      if(this.data3!=null){
+        if(this.typePanel == "Gestion des utilisateurs" || this.typePanel == 'Gestion des Administateur'){
+          if((this.data3.type == "deleteUser" && this.data3.status == 200)||(this.data3=="modify")){
             this.data = null;
             this.isData = false;
             this.ngOnInit();
           }
         }
         if(this.typePanel == "Gestion des chevaux"){
-          if(this.data3.type == "deleteCheval" && this.data3.status == 200){
+          if((this.data3.type == "deleteCheval" && this.data3.status == 200)||(this.data3=="modify")){
             this.data = null;
             this.isData = false;
             this.ngOnInit();
           }
         }
         if(this.typePanel == "Gestion des cours"){
-          if(this.data3.type == "deleteCours" && this.data3.status == 200){
+          if((this.data3.type == "deleteCours" && this.data3.status == 200)||(this.data3=="modify")){
             this.data = null;
             this.isData = false;
             this.ngOnInit();
@@ -158,6 +173,10 @@ export class PanelListeComponent implements OnInit {
       this.isGood = false;
       if(result != undefined){
         switch(result.typePanel){
+          case 'Gestion des Administateur':
+            result.typePanel='Gestion des utilisateurs'
+            this.putObject.emit({obj:result.elem});
+            break;
           case 'Gestion des utilisateurs':
             this.putObject.emit({obj:result.elem});
             break;
@@ -165,8 +184,13 @@ export class PanelListeComponent implements OnInit {
             this.putObject.emit({obj:result.elem});
             break;
           case 'Gestion des cours':
-            result.elem.dateCours = this.formatdate(result.elem.dateCours);
-            this.putObject.emit({obj:result.elem});
+            console.log((result.elem.dateCours).length)
+            if((result.elem.dateCours).length==10){
+              this.putObject.emit({obj:result.elem});
+            }else{
+              result.elem.dateCours = this.formatdate(result.elem.dateCours);
+              this.putObject.emit({obj:result.elem});
+            }
             break;
         }
         this.ngOnInit();
@@ -175,7 +199,7 @@ export class PanelListeComponent implements OnInit {
   }
 
   supprimer(element){
-    if(this.typePanel == "Gestion des utilisateurs"){
+    if(this.typePanel == "Gestion des utilisateurs" || this.typePanel == 'Gestion des Administateur'){
       this.deleteObject.emit({obj:element.id}); //send data
     }
     if(this.typePanel == "Gestion des chevaux"){
@@ -188,7 +212,7 @@ export class PanelListeComponent implements OnInit {
 
   modifier(element){
     this.isGood = true;
-    if(this.typePanel == "Gestion des utilisateurs"){
+    if(this.typePanel == "Gestion des utilisateurs" || this.typePanel == 'Gestion des Administateur'){
       this.retrieveObject.emit({obj:element.id}); //send data
     }
     if(this.typePanel == "Gestion des chevaux"){

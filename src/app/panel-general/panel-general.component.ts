@@ -201,16 +201,16 @@ export class PanelGeneralComponent implements OnDestroy {
         }
         break;
       case 'Gestion des utilisateurs':
-        this.restservice.put(event, typePanel).subscribe(res => { this.data = res; this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
+        this.restservice.put(event, typePanel).subscribe(() => { this.data3 = "modify"; this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
         break;
       case 'Gestion des chevaux':
-        this.restservice.put(event, typePanel).subscribe(res => { this.data = res; this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
+        this.restservice.put(event, typePanel).subscribe(() => { this.data3 = "modify"; this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
         break;
       case 'Gestion des cours':
-        this.restservice.put(event, typePanel).subscribe(res => { this.data = res; this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
+        this.restservice.put(event, typePanel).subscribe(() => { this.data3 = "modify"; this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
         break;
       case 'Planning de cours':
-        this.restservice.put(event, typePanel).subscribe(res => { this.openSnackBar("Les chevaux ont bien été affecté", 'Close')},err => console.error(err));
+        this.restservice.put(event, typePanel).subscribe(() => { this.openSnackBar("Les chevaux ont bien été affecté", 'Close')},err => console.error(err));
         break;
     }
     
@@ -219,16 +219,16 @@ export class PanelGeneralComponent implements OnDestroy {
   post(event, typePanel){
     switch(typePanel){
       case 'Gestion des utilisateurs':
-        this.restservice.post(event, typePanel).subscribe(res => { this.openSnackBar("l'utilisateur vient d'être crée un mail va être envoyée a celui ci sont identifiant est: " + res, 'Close')},err => console.error(err));
+        this.restservice.post(event, typePanel).subscribe(res => { this.selectedTab = 0; this.openSnackBar("l'utilisateur vient d'être crée un mail va être envoyée a celui ci sont identifiant est: " + res, 'Close')},err => console.error(err));
         break;
       case 'Gestion des chevaux':
-        this.restservice.post(event, typePanel).subscribe(res => { this.openSnackBar("le cheval vient d'être crée sont identifiant est: " + res, 'Close')},err => console.error(err));
+        this.restservice.post(event, typePanel).subscribe(res => { this.selectedTab = 0; this.openSnackBar("le cheval vient d'être crée sont identifiant est: " + res, 'Close')},err => console.error(err));
         break;
       case 'Gestion des cours':
-        this.restservice.post(event, typePanel).subscribe(res => {this.openSnackBar("le cour vient d'être crée sont identifiant est: " + res, 'Close')},err => console.error(err));
+        this.restservice.post(event, typePanel).subscribe(res => { this.selectedTab = 0; this.openSnackBar("le cour vient d'être crée sont identifiant est: " + res, 'Close')},err => console.error(err));
         break;
       case 'Planning de cours':
-        this.restservice.post(event, typePanel).subscribe(res => { this.openSnackBar("Vous venez de vous inscrire au cour", 'Close')},err => console.error(err));
+        this.restservice.post(event, typePanel).subscribe(() => { this.openSnackBar("Vous venez de vous inscrire au cour", 'Close')},err => console.error(err));
         break;
     }
   }

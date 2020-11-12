@@ -35,7 +35,7 @@ export class AppService {
   public get(typePanel){
     switch(typePanel){
       case 'Gestion des utilisateurs':
-        return this.http.get(this.conf['urlBase'] +  "users", HTTP_OPTIONS)
+        return this.http.get(this.conf['urlBase'] +  "usersMoniteurCavalier", HTTP_OPTIONS)
       case 'Gestion des Administateur':
         return this.http.get(this.conf['urlBase'] +  "usersAdmin", HTTP_OPTIONS)
       case 'Gestion des chevaux':
@@ -159,9 +159,7 @@ export class AppService {
   }
 
   public modifyMdp(corps){
-    var body;
-    body = {email:corps.email,password:corps.password,passwordConfirm:corps.passwordConfirm};
-    return this.http.put(this.conf['urlBase'] +  "modifyMdp", body, HTTP_OPTIONS)
+    return this.http.get(this.conf['urlBase'] +  "modifyMdp?email="+corps.email+"&password="+corps.password+"&passwordConfirm="+corps.passwordConfirm, HTTP_OPTIONS)
   }
 }
 

@@ -1,4 +1,4 @@
-<div *ngIf="data.typePanel == 'Gestion des utilisateurs'">
+<div *ngIf="data.typePanel == 'Gestion des utilisateurs' || data.typePanel == 'Gestion des Administateur'">
     <mat-card class="example-card">
         <mat-card-header>
           <div mat-card-avatar class="example-header-image"></div>
@@ -23,14 +23,21 @@
               <span matPrefix>+33 &nbsp;</span>
               <input type="number" matInput placeholder={{data.elem.phoneNumber}} name="phone" [(ngModel)]="data.elem.phoneNumber">
             </mat-form-field><br>
-            <mat-form-field>
-              <mat-label>Role dans le centre équestre</mat-label>
-              <mat-select  [(ngModel)]="data.elem.role" [(value)]="data.elem.role" name="role">
-                <mat-option value="cavalier">Cavalier</mat-option>
-                <mat-option value="moniteur">Moniteur</mat-option>
-                <mat-option value="administateur">administateur</mat-option>
-              </mat-select>
-            </mat-form-field><br>
+            <div *ngIf="data.typePanel == 'Gestion des Administateur'">
+              <mat-form-field>
+                <input matInput placeholder="Rôle" value={{data.elem.role}} disabled>
+              </mat-form-field>
+            </div>
+            <div *ngIf="data.typePanel == 'Gestion des utilisateurs'">
+              <mat-form-field>
+                <mat-label>Role dans le centre équestre</mat-label>
+                <mat-select  [(ngModel)]="data.elem.role" [(value)]="data.elem.role" name="role">
+                  <mat-option value="cavalier">Cavalier</mat-option>
+                  <mat-option value="moniteur">Moniteur</mat-option>
+                  <mat-option value="administateur">administateur</mat-option>
+                </mat-select>
+              </mat-form-field><br>
+            </div>
             <mat-form-field class="example-full-width">
               <mat-label>Numéro de licence</mat-label>
               <input matInput type="number" maxlength="10" placeholder={{data.elem.licenceNumber}} name="licence" [(ngModel)]="data.elem.licenceNumber"> 
@@ -87,8 +94,7 @@
         <mat-card-content>
           <form class="example-form">
             <mat-form-field class="example-full-width">
-              <mat-label>Moniteur</mat-label>
-              <input matInput placeholder={{data.elem.moniteur}} name="moniteur" [(ngModel)]="data.elem.moniteur">
+              <input matInput placeholder="Moniteur" [(ngModel)]="data.elem.moniteur" value={{data.elem.moniteur}}  name="moniteur" disabled>
             </mat-form-field><br>
             <mat-form-field class="example-full-width">
               <mat-label>Titre</mat-label>
@@ -110,10 +116,6 @@
             <mat-form-field class="example-full-width">
               <mat-label>Niveau</mat-label>
               <input matInput type="number" maxlength="10" placeholder={{data.elem.niveau}} name="niveau" [(ngModel)]="data.elem.niveau"> 
-            </mat-form-field><br>
-            <mat-form-field class="example-full-width">
-              <mat-label>idMoniteur</mat-label> 
-              <input matInput type="number" maxlength="10" placeholder={{data.elem.idMoniteur}} name="idMoniteur" [(ngModel)]="data.elem.idMoniteur"> 
             </mat-form-field><br>
           </form>
         </mat-card-content>

@@ -47,16 +47,16 @@
               <app-user-info [data]="data" (retrieveUser)="get($event, fillerContent.text)" (modificationUser)="put($event, fillerContent.text)" (modificationMdp)="put($event, fillerContent.text)"></app-user-info>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des utilisateurs'">
-              <app-panel-liste [typePanel]="fillerContent.text" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, fillerContent.text)" (putObject)="put($event, fillerContent.text)" (retrieveObject)="get($event, fillerContent.text)"  [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" [tab]="selectedTab" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, fillerContent.text)" (putObject)="put($event, fillerContent.text)" (retrieveObject)="get($event, fillerContent.text)"  [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des Administateur'">
-              <app-panel-liste [typePanel]="fillerContent.text" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, 'Gestion des utilisateurs')" (putObject)="put($event, 'Gestion des utilisateurs')" (retrieveObject)="get($event, 'Gestion des utilisateurs')"  [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" [tab]="selectedTab" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, 'Gestion des utilisateurs')" (putObject)="put($event, 'Gestion des utilisateurs')" (retrieveObject)="get($event, 'Gestion des utilisateurs')"  [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des chevaux'">
-              <app-panel-liste [typePanel]="fillerContent.text" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, fillerContent.text)" (putObject)="put($event, fillerContent.text)" (retrieveObject)="get($event, fillerContent.text)" [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" [tab]="selectedTab" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, fillerContent.text)" (putObject)="put($event, fillerContent.text)" (retrieveObject)="get($event, fillerContent.text)" [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des cours'">
-              <app-panel-liste [typePanel]="fillerContent.text" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, fillerContent.text)" (putObject)="put($event, fillerContent.text)" (retrieveObject)="get($event, fillerContent.text)" [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
+              <app-panel-liste [typePanel]="fillerContent.text" [tab]="selectedTab" (getAllObject)="getAll(fillerContent.text)" (deleteObject)="del($event, fillerContent.text)" (putObject)="put($event, fillerContent.text)" (retrieveObject)="get($event, fillerContent.text)" [data]="data" [data2]="data2" [data3]="data3"></app-panel-liste>
             </div>
             <div *ngIf="fillerContent.text == 'Planning de cours'">
               <div *ngIf="this.user.role == 'cavalier'">
@@ -77,7 +77,7 @@
               <app-panel-create [typePanel]="fillerContent.text" (formulaireAjout)="post($event, fillerContent.text)"></app-panel-create>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des Administateur'">
-              <app-panel-create [typePanel]="'Gestion des utilisateurs'" (formulaireAjout)="post($event, 'Gestion des utilisateurs')"></app-panel-create>
+              <app-panel-create [typePanel]="'Gestion des Administateur'" (formulaireAjout)="post($event, 'Gestion des utilisateurs')"></app-panel-create>
             </div>
             <div *ngIf="fillerContent.text == 'Gestion des chevaux'">
               <app-panel-create [typePanel]="fillerContent.text" (formulaireAjout)="post($event, fillerContent.text)"></app-panel-create>
