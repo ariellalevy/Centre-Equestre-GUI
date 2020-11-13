@@ -106,8 +106,6 @@ export class PlanningListComponent implements OnInit {
     if(this.typePanel == "Planning de cours"){
       if(element.desinscription!='Complet'){
         this.desinscriptionCour.emit({obj:element.id});
-      }else{
-        console.log("complet")
       }
     }
   }

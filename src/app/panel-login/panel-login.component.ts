@@ -65,8 +65,6 @@ export class PanelLoginComponent implements OnInit {
   }
 
   inscription(){
-    console.log(this.formInscription.licence);
-    console.log(this.formInscription);
     this.formulaireInscription.emit({obj:this.formInscription});
   }
 

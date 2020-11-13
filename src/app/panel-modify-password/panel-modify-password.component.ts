@@ -36,7 +36,6 @@ export class PanelModifyPasswordComponent implements OnInit {
   }
 
   valider(){
-    console.log(this.data)
     this.restservice.modifyMdp(this.data).subscribe(res => { this.openSnackBar("Vos donnée ont été mis à jour", 'Close')},err => console.error(err));
   }
 }

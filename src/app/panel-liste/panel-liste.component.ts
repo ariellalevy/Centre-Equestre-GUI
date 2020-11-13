@@ -184,7 +184,6 @@ export class PanelListeComponent implements OnInit {
             this.putObject.emit({obj:result.elem});
             break;
           case 'Gestion des cours':
-            console.log((result.elem.dateCours).length)
             if((result.elem.dateCours).length==10){
               this.putObject.emit({obj:result.elem});
             }else{

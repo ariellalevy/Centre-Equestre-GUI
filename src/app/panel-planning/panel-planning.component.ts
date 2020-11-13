@@ -58,14 +58,8 @@ export class PanelPlanningComponent implements OnInit {
         if(this.typePanel == 'Planning de cours'){
           this.user = JSON.parse(localStorage.getItem('userCourrant'));
           if(this.user.role == "cavalier"){
-            console.log(this.tabCourCheval)
           }
         }
-      }
-    }
-    if(changes['planning2']){
-      if(this.planning2!=null){
-        console.log(this.planning2);
       }
     }
   }

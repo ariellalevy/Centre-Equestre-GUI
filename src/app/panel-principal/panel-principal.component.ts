@@ -35,7 +35,6 @@ export class PanelPrincipalComponent {
           this.utilisateur = this.resultat.userReponse;
           this.isLogin=true;
         }if(this.resultat.status == 0){
-          console.log(this.compteur)
           if(this.compteur == 3){
             this.router.navigateByUrl('/password')
           }else if(this.resultat.message == 'Password Incorrect Error!!'){
@@ -49,7 +48,6 @@ export class PanelPrincipalComponent {
   }
 
   changeLoginStatus(event){
-    console.log(event)
     this.isLogin=event
   }
 
